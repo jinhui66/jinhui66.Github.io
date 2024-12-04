@@ -1,0 +1,2251 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第八章 文本数据 &#8212; python-lib</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-lib/pandas/notebook/08 文本数据';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="第九章 分类数据" href="09%20%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE.html" />
+    <link rel="prev" title="第七章 缺失数据" href="07%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="python-lib - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="python-lib - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01%20%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86.html">第一章 预备知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20pandas%E5%9F%BA%E7%A1%80.html">第二章 pandas基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03%20%E7%B4%A2%E5%BC%95.html">第三章 索引</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04%20%E5%88%86%E7%BB%84.html">第四章 分组</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05%20%E5%8F%98%E5%BD%A2.html">第五章 变形</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06%20%E8%BF%9E%E6%8E%A5.html">第六章 连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE.html">第七章 缺失数据</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第八章 文本数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE.html">第九章 分类数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE.html">第十章 时序数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.html">参考答案</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpython-lib/pandas/notebook/08 文本数据.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/python-lib/pandas/notebook/08 文本数据.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第八章 文本数据</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#str">一、str对象</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. str对象的设计意图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2. []索引器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string">3. string类型</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">二、正则表达式基础</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. 一般字符的匹配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. 元字符基础</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. 简写字符集</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">三、文本处理的五类操作</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1. 拆分</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2. 合并</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3. 匹配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4. 替换</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5. 提取</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">四、常用字符串函数</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">1. 字母型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2. 数值型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 统计型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 格式型函数</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">五、练习</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex1">Ex1：房屋信息数据集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex2">Ex2：《权力的游戏》剧本数据集</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第八章 文本数据<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="str">
+<h2>一、str对象<a class="headerlink" href="#str" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>1. str对象的设计意图<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">str</span></code>对象是定义在<code class="docutils literal notranslate"><span class="pre">Index</span></code>或<code class="docutils literal notranslate"><span class="pre">Series</span></code>上的属性，专门用于处理每个元素的文本内容，其内部定义了大量方法，因此对一个序列进行文本处理，首先需要获取其<code class="docutils literal notranslate"><span class="pre">str</span></code>对象。在Python标准库中也有<code class="docutils literal notranslate"><span class="pre">str</span></code>模块，为了使用上的便利，有许多函数的用法<code class="docutils literal notranslate"><span class="pre">pandas</span></code>照搬了它的设计，例如字母转为大写的操作：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;abcd&#39;</span>
+<span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">(</span><span class="n">var</span><span class="p">)</span> <span class="c1"># Python内置str模块</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;ABCD&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;abcd&#39;</span><span class="p">,</span> <span class="s1">&#39;efg&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.strings.accessor.StringMethods at 0x1ddd62844f0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="c1"># pandas中str对象上的upper方法</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    ABCD
+1     EFG
+2      HI
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>根据文档<code class="docutils literal notranslate"><span class="pre">API</span></code>材料，在<code class="docutils literal notranslate"><span class="pre">pandas</span></code>的50个<code class="docutils literal notranslate"><span class="pre">str</span></code>对象方法中，有31个是和标准库中的<code class="docutils literal notranslate"><span class="pre">str</span></code>模块方法同名且功能一致，这为批量处理序列提供了有力的工具。</p>
+</section>
+<section id="id3">
+<h3>2. []索引器<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>对于<code class="docutils literal notranslate"><span class="pre">str</span></code>对象而言，可理解为其对字符串进行了序列化的操作，例如在一般的字符串中，通过<code class="docutils literal notranslate"><span class="pre">[]</span></code>可以取出某个位置的元素：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;a&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>同时也能通过切片得到子串：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;db&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>通过对<code class="docutils literal notranslate"><span class="pre">str</span></code>对象使用<code class="docutils literal notranslate"><span class="pre">[]</span></code>索引器，可以完成完全一致的功能，并且如果超出范围则返回缺失值：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a
+1    e
+2    h
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    db
+1     g
+2     i
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      c
+1      g
+2    NaN
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="string">
+<h3>3. string类型<a class="headerlink" href="#string" title="Link to this heading">#</a></h3>
+<p>在上一章提到，从<code class="docutils literal notranslate"><span class="pre">pandas</span></code>的<code class="docutils literal notranslate"><span class="pre">1.0.0</span></code>版本开始，引入了<code class="docutils literal notranslate"><span class="pre">string</span></code>类型，其引入的动机在于：原来所有的字符串类型都会以<code class="docutils literal notranslate"><span class="pre">object</span></code>类型的<code class="docutils literal notranslate"><span class="pre">Series</span></code>进行存储，但<code class="docutils literal notranslate"><span class="pre">object</span></code>类型只应当存储混合类型，例如同时存储浮点、字符串、字典、列表、自定义类型等，因此字符串有必要同数值型或<code class="docutils literal notranslate"><span class="pre">category</span></code>一样，具有自己的数据存储类型，从而引入了<code class="docutils literal notranslate"><span class="pre">string</span></code>类型。</p>
+<p>总体上说，绝大多数对于<code class="docutils literal notranslate"><span class="pre">object</span></code>和<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的序列使用<code class="docutils literal notranslate"><span class="pre">str</span></code>对象方法产生的结果是一致，但是在下面提到的两点上有较大差异：</p>
+<p>首先，应当尽量保证每一个序列中的值都是字符串的情况下才使用<code class="docutils literal notranslate"><span class="pre">str</span></code>属性，但这并不是必须的，其必要条件是序列中至少有一个可迭代（Iterable）对象，包括但不限于字符串、字典、列表。对于一个可迭代对象，<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的<code class="docutils literal notranslate"><span class="pre">str</span></code>对象和<code class="docutils literal notranslate"><span class="pre">object</span></code>类型的<code class="docutils literal notranslate"><span class="pre">str</span></code>对象返回结果可能是不同的。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;temp_1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;temp_2&#39;</span><span class="p">},</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;my_string&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    temp_1
+1         b
+2       NaN
+3         y
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1
+1    &#39;
+2    .
+3    y
+dtype: string
+</pre></div>
+</div>
+</div>
+</div>
+<p>除了最后一个字符串元素，前三个元素返回的值都不同，其原因在于当序列类型为<code class="docutils literal notranslate"><span class="pre">object</span></code>时，是对于每一个元素进行<code class="docutils literal notranslate"><span class="pre">[]</span></code>索引，因此对于字典而言，返回temp_1字符串，对于列表则返回第二个值，而第三个为不可迭代对象，返回缺失值，第四个是对字符串进行<code class="docutils literal notranslate"><span class="pre">[]</span></code>索引。而<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的<code class="docutils literal notranslate"><span class="pre">str</span></code>对象先把整个元素转为字面意义的字符串，例如对于列表而言，第一个元素即 “{”，而对于最后一个字符串元素而言，恰好转化前后的表示方法一致，因此结果和<code class="docutils literal notranslate"><span class="pre">object</span></code>类型一致。</p>
+<p>除了对于某些对象的<code class="docutils literal notranslate"><span class="pre">str</span></code>序列化方法不同之外，两者另外的一个差别在于，<code class="docutils literal notranslate"><span class="pre">string</span></code>类型是<code class="docutils literal notranslate"><span class="pre">Nullable</span></code>类型，但<code class="docutils literal notranslate"><span class="pre">object</span></code>不是。这意味着<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的序列，如果调用的<code class="docutils literal notranslate"><span class="pre">str</span></code>方法返回值为整数<code class="docutils literal notranslate"><span class="pre">Series</span></code>和布尔<code class="docutils literal notranslate"><span class="pre">Series</span></code>时，其分别对应的<code class="docutils literal notranslate"><span class="pre">dtype</span></code>是<code class="docutils literal notranslate"><span class="pre">Int</span></code>和<code class="docutils literal notranslate"><span class="pre">boolean</span></code>的<code class="docutils literal notranslate"><span class="pre">Nullable</span></code>类型，而<code class="docutils literal notranslate"><span class="pre">object</span></code>类型则会分别返回<code class="docutils literal notranslate"><span class="pre">int/float</span></code>和<code class="docutils literal notranslate"><span class="pre">bool/object</span></code>，取决于缺失值的存在与否。同时，字符串的比较操作，也具有相似的特性，<code class="docutils literal notranslate"><span class="pre">string</span></code>返回<code class="docutils literal notranslate"><span class="pre">Nullable</span></code>类型，但<code class="docutils literal notranslate"><span class="pre">object</span></code>不会。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1
+dtype: Int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    True
+dtype: boolean
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span> <span class="c1"># 带有缺失值</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1.0
+1    NaN
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       1
+1    &lt;NA&gt;
+dtype: Int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    True
+1    &lt;NA&gt;
+dtype: boolean
+</pre></div>
+</div>
+</div>
+</div>
+<p>最后需要注意的是，对于全体元素为数值类型的序列，即使其类型为<code class="docutils literal notranslate"><span class="pre">object</span></code>或者<code class="docutils literal notranslate"><span class="pre">category</span></code>也不允许直接使用<code class="docutils literal notranslate"><span class="pre">str</span></code>属性。如果需要把数字当成<code class="docutils literal notranslate"><span class="pre">string</span></code>类型处理，可以使用<code class="docutils literal notranslate"><span class="pre">astype</span></code>强制转换为<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的<code class="docutils literal notranslate"><span class="pre">Series</span></code>：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">6789</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    2
+1    4
+2    7
+dtype: string
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>二、正则表达式基础<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>这一节的两个表格来自于<a class="reference external" href="https://github.com/cdoco/learn-regex-zh">learn-regex-zh</a>这个关于正则表达式项目，其使用<code class="docutils literal notranslate"><span class="pre">MIT</span></code>开源许可协议。这里只是介绍正则表达式的基本用法，需要系统学习的读者可参考<a class="reference external" href="https://book.douban.com/subject/26285406/">正则表达式必知必会</a>一书。</p>
+<section id="id5">
+<h3>1. 一般字符的匹配<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>正则表达式是一种按照某种正则模式，从左到右匹配字符串中内容的一种工具。对于一般的字符而言，它可以找到其所在的位置，这里为了演示便利，使用了<code class="docutils literal notranslate"><span class="pre">python</span></code>中<code class="docutils literal notranslate"><span class="pre">re</span></code>模块的<code class="docutils literal notranslate"><span class="pre">findall</span></code>函数来匹配所有出现过但不重叠的模式，第一个参数是正则表达式，第二个参数是待匹配的字符串。例如，在下面的字符串中找出<code class="docutils literal notranslate"><span class="pre">apple</span></code>：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Apple! This Is an Apple!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Apple&#39;, &#39;Apple&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3>2. 元字符基础<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>元字符</p></th>
+<th class="head text-right"><p>描述</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>.</p></td>
+<td class="text-right"><p>匹配除换行符以外的任意字符</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>[ ]</p></td>
+<td class="text-right"><p>字符类，匹配方括号中包含的任意字符</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>[^ ]</p></td>
+<td class="text-right"><p>否定字符类，匹配方括号中不包含的任意字符</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>*</p></td>
+<td class="text-right"><p>匹配前面的子表达式零次或多次</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>+</p></td>
+<td class="text-right"><p>匹配前面的子表达式一次或多次</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>?</p></td>
+<td class="text-right"><p>匹配前面的子表达式零次或一次</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>{n,m}</p></td>
+<td class="text-right"><p>花括号，匹配前面字符至少 n 次，但是不超过 m 次</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>(xyz)</p></td>
+<td class="text-right"><p>字符组，按照确切的顺序匹配字符xyz</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>|</p></td>
+<td class="text-right"><p>分支结构，匹配符号之前的字符或后面的字符</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>\</p></td>
+<td class="text-right"><p>转义符，它可以还原元字符原来的含义</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>^</p></td>
+<td class="text-right"><p>匹配行的开始</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>$</p></td>
+<td class="text-right"><p>匹配行的结束</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[ac]&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;c&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^ac]&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;b&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[ab]</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;aaaabbbb&#39;</span><span class="p">)</span> <span class="c1"># {n}指匹配n次</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;aa&#39;, &#39;aa&#39;, &#39;bb&#39;, &#39;bb&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;aaa|bbb&#39;</span><span class="p">,</span> <span class="s1">&#39;aaaabbbb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;aaa&#39;, &#39;bbb&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;a</span><span class="se">\\</span><span class="s1">?|a\*&#39;</span><span class="p">,</span> <span class="s1">&#39;aa?a*a&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;a?.&#39;</span><span class="p">,</span> <span class="s1">&#39;abaacadaae&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;ab&#39;, &#39;aa&#39;, &#39;c&#39;, &#39;ad&#39;, &#39;aa&#39;, &#39;e&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id7">
+<h3>3. 简写字符集<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>此外，正则表达式中还有一类简写字符集，其等价于一组字符的集合：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>简写</p></th>
+<th class="head text-left"><p>描述</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>\w</p></td>
+<td class="text-left"><p>匹配所有字母、数字、下划线: [a-zA-Z0-9_]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>\W</p></td>
+<td class="text-left"><p>匹配非字母和数字的字符: [^\w]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>\d</p></td>
+<td class="text-left"><p>匹配数字: [0-9]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>\D</p></td>
+<td class="text-left"><p>匹配非数字: [^\d]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>\s</p></td>
+<td class="text-left"><p>匹配空格符: [\t\n\f\r\p{Z}]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>\S</p></td>
+<td class="text-left"><p>匹配非空格符: [^\s]</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>\B</p></td>
+<td class="text-left"><p>匹配一组非空字符开头或结尾的位置，不代表具体字符</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.s&#39;</span><span class="p">,</span> <span class="s1">&#39;Apple! This Is an Apple!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;is&#39;, &#39;Is&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;09 8? 7w c_ 9q p@&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;09&#39;, &#39;7w&#39;, &#39;c_&#39;, &#39;9q&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w\W\B&#39;</span><span class="p">,</span> <span class="s1">&#39;09 8? 7w c_ 9q p@&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;8?&#39;, &#39;p@&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;.\s.&#39;</span><span class="p">,</span> <span class="s1">&#39;Constant dropping wears the stone.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;t d&#39;, &#39;g w&#39;, &#39;s t&#39;, &#39;e s&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;上海市(.{2,3}区)(.{2,3}路)(\d+号)&#39;</span><span class="p">,</span> <span class="s1">&#39;上海市黄浦区方浜中路249号 上海市宝山区密山路5号&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;黄浦区&#39;, &#39;方浜中路&#39;, &#39;249号&#39;), (&#39;宝山区&#39;, &#39;密山路&#39;, &#39;5号&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h2>三、文本处理的五类操作<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>1. 拆分<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">str.split</span></code>能够把字符串的列进行拆分，其中第一个参数为正则表达式，可选参数包括从左到右的最大拆分次数<code class="docutils literal notranslate"><span class="pre">n</span></code>，是否展开为多个列<code class="docutils literal notranslate"><span class="pre">expand</span></code>。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;上海市黄浦区方浜中路249号&#39;</span><span class="p">,</span> <span class="s1">&#39;上海市宝山区密山路5号&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[市区路]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    [上海, 黄浦, 方浜中, 249号]
+1       [上海, 宝山, 密山, 5号]
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[市区路]&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>上海</td>
+      <td>黄浦</td>
+      <td>方浜中路249号</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>上海</td>
+      <td>宝山</td>
+      <td>密山路5号</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>与其类似的函数是<code class="docutils literal notranslate"><span class="pre">str.rsplit</span></code>，其区别在于使用<code class="docutils literal notranslate"><span class="pre">n</span></code>参数的时候是从右到左限制最大拆分次数。但是当前版本下<code class="docutils literal notranslate"><span class="pre">rsplit</span></code>因为<code class="docutils literal notranslate"><span class="pre">bug</span></code>而无法使用正则表达式进行分割：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;[市区路]&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>上海市黄浦区方浜中路249号</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>上海市宝山区密山路5号</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id10">
+<h3>2. 合并<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>关于合并一共有两个函数，分别是<code class="docutils literal notranslate"><span class="pre">str.join</span></code>和<code class="docutils literal notranslate"><span class="pre">str.cat</span></code>。<code class="docutils literal notranslate"><span class="pre">str.join</span></code>表示用某个连接符把<code class="docutils literal notranslate"><span class="pre">Series</span></code>中的字符串列表连接起来，如果列表中出现了非字符串元素则返回缺失值：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="s1">&#39;c&#39;</span><span class="p">]])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a-b
+1    NaN
+2    NaN
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">str.cat</span></code>用于合并两个序列，主要参数为连接符<code class="docutils literal notranslate"><span class="pre">sep</span></code>、连接形式<code class="docutils literal notranslate"><span class="pre">join</span></code>以及缺失值替代符号<code class="docutils literal notranslate"><span class="pre">na_rep</span></code>，其中连接形式默认为以索引为键的左连接。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">])</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a-cat
+1    b-dog
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">na_rep</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      a-?
+1    b-cat
+2    ?-dog
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h3>3. 匹配<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">str.contains</span></code>返回了每个字符串是否包含正则模式的布尔序列：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;my cat&#39;</span><span class="p">,</span> <span class="s1">&#39;he is fat&#39;</span><span class="p">,</span> <span class="s1">&#39;railway station&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;\s\wat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1     True
+2    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">str.startswith</span></code>和<code class="docutils literal notranslate"><span class="pre">str.endswith</span></code>返回了每个字符串以给定模式为开始和结束的布尔序列，它们都不支持正则表达式：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;my&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1    False
+2    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1     True
+2    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>如果需要用正则表达式来检测开始或结束字符串的模式，可以使用<code class="docutils literal notranslate"><span class="pre">str.match</span></code>，其返回了每个字符串起始处是否符合给定正则模式的布尔序列：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;m|h&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1     True
+2    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;ta[f|g]|n&#39;</span><span class="p">)</span> <span class="c1"># 反转后匹配</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1     True
+2     True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>当然，这些也能通过在<code class="docutils literal notranslate"><span class="pre">str.contains</span></code>的正则中使用<code class="docutils literal notranslate"><span class="pre">^</span></code>和<code class="docutils literal notranslate"><span class="pre">$</span></code>来实现：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;^[m|h]&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0     True
+1     True
+2    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;[f|g]at|n$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1     True
+2     True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>除了上述返回值为布尔的匹配之外，还有一种返回索引的匹配函数，即<code class="docutils literal notranslate"><span class="pre">str.find</span></code>与<code class="docutils literal notranslate"><span class="pre">str.rfind</span></code>，其分别返回从左到右和从右到左第一次匹配的位置的索引，未找到则返回-1。需要注意的是这两个函数不支持正则匹配，只能用于字符子串的匹配：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;This is an apple. That is not an apple.&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    11
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    33
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id12">
+<h3>4. 替换<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">str.replace</span></code>和<code class="docutils literal notranslate"><span class="pre">replace</span></code>并不是一个函数，在使用字符串替换时应当使用前者。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a_1_b&#39;</span><span class="p">,</span><span class="s1">&#39;c_?&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;\d|\?&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a_new_b
+1      c_new
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>当需要对不同部分进行有差别的替换时，可以利用<code class="docutils literal notranslate"><span class="pre">子组</span></code>的方法，并且此时可以通过传入自定义的替换函数来分别进行处理，注意<code class="docutils literal notranslate"><span class="pre">group(k)</span></code>代表匹配到的第<code class="docutils literal notranslate"><span class="pre">k</span></code>个子组（圆括号之间的内容）：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;上海市黄浦区方浜中路249号&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;上海市宝山区密山路5号&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;北京市昌平区北农路2号&#39;</span><span class="p">])</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="s1">&#39;(\w+市)(\w+区)(\w+路)(\d+号)&#39;</span>
+<span class="n">city</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;上海市&#39;</span><span class="p">:</span> <span class="s1">&#39;Shanghai&#39;</span><span class="p">,</span> <span class="s1">&#39;北京市&#39;</span><span class="p">:</span> <span class="s1">&#39;Beijing&#39;</span><span class="p">}</span>
+<span class="n">district</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;昌平区&#39;</span><span class="p">:</span> <span class="s1">&#39;CP District&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;黄浦区&#39;</span><span class="p">:</span> <span class="s1">&#39;HP District&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;宝山区&#39;</span><span class="p">:</span> <span class="s1">&#39;BS District&#39;</span><span class="p">}</span>
+<span class="n">road</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;方浜中路&#39;</span><span class="p">:</span> <span class="s1">&#39;Mid Fangbin Road&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;密山路&#39;</span><span class="p">:</span> <span class="s1">&#39;Mishan Road&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;北农路&#39;</span><span class="p">:</span> <span class="s1">&#39;Beinong Road&#39;</span><span class="p">}</span>
+<span class="k">def</span> <span class="nf">my_func</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">str_city</span> <span class="o">=</span> <span class="n">city</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">str_district</span> <span class="o">=</span> <span class="n">district</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+    <span class="n">str_road</span> <span class="o">=</span> <span class="n">road</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+    <span class="n">str_no</span> <span class="o">=</span> <span class="s1">&#39;No. &#39;</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">str_city</span><span class="p">,</span>
+                     <span class="n">str_district</span><span class="p">,</span>
+                     <span class="n">str_road</span><span class="p">,</span>
+                     <span class="n">str_no</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">my_func</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    Shanghai HP District Mid Fangbin Road No. 249
+1           Shanghai BS District Mishan Road No. 5
+2           Beijing CP District Beinong Road No. 2
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>这里的数字标识并不直观，可以使用<code class="docutils literal notranslate"><span class="pre">命名子组</span></code>更加清晰地写出子组代表的含义：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="s1">&#39;(?P&lt;市名&gt;\w+市)(?P&lt;区名&gt;\w+区)(?P&lt;路名&gt;\w+路)(?P&lt;编号&gt;\d+号)&#39;</span>
+<span class="k">def</span> <span class="nf">my_func</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="n">str_city</span> <span class="o">=</span> <span class="n">city</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;市名&#39;</span><span class="p">)]</span>
+    <span class="n">str_district</span> <span class="o">=</span> <span class="n">district</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;区名&#39;</span><span class="p">)]</span>
+    <span class="n">str_road</span> <span class="o">=</span> <span class="n">road</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;路名&#39;</span><span class="p">)]</span>
+    <span class="n">str_no</span> <span class="o">=</span> <span class="s1">&#39;No. &#39;</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;编号&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">str_city</span><span class="p">,</span>
+                     <span class="n">str_district</span><span class="p">,</span>
+                     <span class="n">str_road</span><span class="p">,</span>
+                     <span class="n">str_no</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">my_func</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    Shanghai HP District Mid Fangbin Road No. 249
+1           Shanghai BS District Mishan Road No. 5
+2           Beijing CP District Beinong Road No. 2
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>这里虽然看起来有些繁杂，但是实际数据处理中对应的替换，一般都会通过代码来获取数据从而构造字典映射，在具体写法上会简洁的多。</p>
+</section>
+<section id="id13">
+<h3>5. 提取<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>提取既可以认为是一种返回具体元素（而不是布尔值或元素对应的索引位置）的匹配操作，也可以认为是一种特殊的拆分操作。前面提到的<code class="docutils literal notranslate"><span class="pre">str.split</span></code>例子中会把分隔符去除，这并不是用户想要的效果，这时候就可以用<code class="docutils literal notranslate"><span class="pre">str.extract</span></code>进行提取：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="s1">&#39;(\w+市)(\w+区)(\w+路)(\d+号)&#39;</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>上海市</td>
+      <td>黄浦区</td>
+      <td>方浜中路</td>
+      <td>249号</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>上海市</td>
+      <td>宝山区</td>
+      <td>密山路</td>
+      <td>5号</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>北京市</td>
+      <td>昌平区</td>
+      <td>北农路</td>
+      <td>2号</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>通过子组的命名，可以直接对新生成<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>的列命名：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat</span> <span class="o">=</span> <span class="s1">&#39;(?P&lt;市名&gt;\w+市)(?P&lt;区名&gt;\w+区)(?P&lt;路名&gt;\w+路)(?P&lt;编号&gt;\d+号)&#39;</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>市名</th>
+      <th>区名</th>
+      <th>路名</th>
+      <th>编号</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>上海市</td>
+      <td>黄浦区</td>
+      <td>方浜中路</td>
+      <td>249号</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>上海市</td>
+      <td>宝山区</td>
+      <td>密山路</td>
+      <td>5号</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>北京市</td>
+      <td>昌平区</td>
+      <td>北农路</td>
+      <td>2号</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">str.extractall</span></code>不同于<code class="docutils literal notranslate"><span class="pre">str.extract</span></code>只匹配一次，它会把所有符合条件的模式全部匹配出来，如果存在多个结果，则以多级索引的方式存储：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;A135T15,A26S5&#39;</span><span class="p">,</span><span class="s1">&#39;B674S2,B25T6&#39;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;my_A&#39;</span><span class="p">,</span><span class="s1">&#39;my_B&#39;</span><span class="p">])</span>
+<span class="n">pat</span> <span class="o">=</span> <span class="s1">&#39;[A|B](\d+)[T|S](\d+)&#39;</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>match</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">my_A</th>
+      <th>0</th>
+      <td>135</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>26</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">my_B</th>
+      <th>0</th>
+      <td>674</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pat_with_name</span> <span class="o">=</span> <span class="s1">&#39;[A|B](?P&lt;name1&gt;\d+)[T|S](?P&lt;name2&gt;\d+)&#39;</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">pat_with_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>name1</th>
+      <th>name2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>match</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">my_A</th>
+      <th>0</th>
+      <td>135</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>26</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">my_B</th>
+      <th>0</th>
+      <td>674</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">str.findall</span></code>的功能类似于<code class="docutils literal notranslate"><span class="pre">str.extractall</span></code>，区别在于前者把结果存入列表中，而后者处理为多级索引，每个行只对应一组匹配，而不是把所有匹配组合构成列表。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>my_A    [(135, 15), (26, 5)]
+my_B     [(674, 2), (25, 6)]
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id14">
+<h2>四、常用字符串函数<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>除了上述介绍的五类字符串操作有关的函数之外，<code class="docutils literal notranslate"><span class="pre">str</span></code>对象上还定义了一些实用的其他方法，在此进行介绍：</p>
+<section id="id15">
+<h3>1. 字母型函数<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">upper,</span> <span class="pre">lower,</span> <span class="pre">title,</span> <span class="pre">capitalize,</span> <span class="pre">swapcase</span></code>这五个函数主要用于字母的大小写转化，从下面的例子中就容易领会其功能：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span> <span class="s1">&#39;CAPITALS&#39;</span><span class="p">,</span> <span class="s1">&#39;this is a sentence&#39;</span><span class="p">,</span> <span class="s1">&#39;SwApCaSe&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                 LOWER
+1              CAPITALS
+2    THIS IS A SENTENCE
+3              SWAPCASE
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                 lower
+1              capitals
+2    this is a sentence
+3              swapcase
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                 Lower
+1              Capitals
+2    This Is A Sentence
+3              Swapcase
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                 Lower
+1              Capitals
+2    This is a sentence
+3              Swapcase
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">swapcase</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                 LOWER
+1              capitals
+2    THIS IS A SENTENCE
+3              sWaPcAsE
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id16">
+<h3>2. 数值型函数<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>这里着重需要介绍的是<code class="docutils literal notranslate"><span class="pre">pd.to_numeric</span></code>方法，它虽然不是<code class="docutils literal notranslate"><span class="pre">str</span></code>对象上的方法，但是能够对字符格式的数值进行快速转换和筛选。其主要参数包括<code class="docutils literal notranslate"><span class="pre">errors</span></code>和<code class="docutils literal notranslate"><span class="pre">downcast</span></code>分别代表了非数值的处理模式和转换类型。其中，对于不能转换为数值的有三种<code class="docutils literal notranslate"><span class="pre">errors</span></code>选项，<code class="docutils literal notranslate"><span class="pre">raise,</span> <span class="pre">coerce,</span> <span class="pre">ignore</span></code>分别表示直接报错、设为缺失以及保持原来的字符串。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2.2&#39;</span><span class="p">,</span> <span class="s1">&#39;2e&#39;</span><span class="p">,</span> <span class="s1">&#39;??&#39;</span><span class="p">,</span> <span class="s1">&#39;-2.1&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0       1
+1     2.2
+2      2e
+3      ??
+4    -2.1
+5       0
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1.0
+1    2.2
+2    NaN
+3    NaN
+4   -2.1
+5    0.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>在数据清洗时，可以利用<code class="docutils literal notranslate"><span class="pre">coerce</span></code>的设定，快速查看非数值型的行：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2    2e
+3    ??
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id17">
+<h3>3. 统计型函数<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">count</span></code>和<code class="docutils literal notranslate"><span class="pre">len</span></code>的作用分别是返回出现正则模式的次数和字符串的长度：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;cat rat fat at&#39;</span><span class="p">,</span> <span class="s1">&#39;get feed sheet heat&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;[r|f]at|ee&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    2
+1    2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    14
+1    19
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id18">
+<h3>4. 格式型函数<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>格式型函数主要分为两类，第一种是除空型，第二种是填充型。其中，第一类函数一共有三种，它们分别是<code class="docutils literal notranslate"><span class="pre">strip,</span> <span class="pre">rstrip,</span> <span class="pre">lstrip</span></code>，分别代表去除两侧空格、右侧空格和左侧空格。这些函数在数据清洗时是有用的，特别是列名含有非法空格的时候。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([</span><span class="s1">&#39; col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2 &#39;</span><span class="p">,</span> <span class="s1">&#39; col3 &#39;</span><span class="p">])</span>
+<span class="n">my_index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([4, 4, 4], dtype=&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([5, 4, 5], dtype=&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([4, 5, 5], dtype=&#39;int64&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>对于填充型函数而言，<code class="docutils literal notranslate"><span class="pre">pad</span></code>是最灵活的，它可以选定字符串长度、填充的方向和填充内容：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    ****a
+1    ****b
+2    ****c
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a****
+1    b****
+2    c****
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    **a**
+1    **b**
+2    **c**
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>上述的三种情况可以分别用<code class="docutils literal notranslate"><span class="pre">rjust,</span> <span class="pre">ljust,</span> <span class="pre">center</span></code>来等效完成，需要注意<code class="docutils literal notranslate"><span class="pre">ljust</span></code>是指右侧填充而不是左侧填充：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    ****a
+1    ****b
+2    ****c
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a****
+1    b****
+2    c****
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    **a**
+1    **b**
+2    **c**
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>在读取<code class="docutils literal notranslate"><span class="pre">excel</span></code>文件时，经常会出现数字前补0的需求，例如证券代码读入的时候会把”000007”作为数值7来处理，<code class="docutils literal notranslate"><span class="pre">pandas</span></code>中除了可以使用上面的左侧填充函数进行操作之外，还可用<code class="docutils literal notranslate"><span class="pre">zfill</span></code>来实现。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">303000</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;left&#39;</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    000007
+1    000155
+2    303000
+dtype: string
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    000007
+1    000155
+2    303000
+dtype: string
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    000007
+1    000155
+2    303000
+dtype: string
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id19">
+<h2>五、练习<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="ex1">
+<h3>Ex1：房屋信息数据集<a class="headerlink" href="#ex1" title="Link to this heading">#</a></h3>
+<p>现有一份房屋信息数据集如下：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/house_info.xls&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;floor&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;area&#39;</span><span class="p">,</span><span class="s1">&#39;price&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>floor</th>
+      <th>year</th>
+      <th>area</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>高层（共6层）</td>
+      <td>1986年建</td>
+      <td>58.23㎡</td>
+      <td>155万</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>中层（共20层）</td>
+      <td>2020年建</td>
+      <td>88㎡</td>
+      <td>155万</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>低层（共28层）</td>
+      <td>2010年建</td>
+      <td>89.33㎡</td>
+      <td>365万</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple">
+<li><p>将<code class="docutils literal notranslate"><span class="pre">year</span></code>列改为整数年份存储。</p></li>
+<li><p>将<code class="docutils literal notranslate"><span class="pre">floor</span></code>列替换为<code class="docutils literal notranslate"><span class="pre">Level,</span> <span class="pre">Highest</span></code>两列，其中的元素分别为<code class="docutils literal notranslate"><span class="pre">string</span></code>类型的层类别（高层、中层、低层）与整数类型的最高层数。</p></li>
+<li><p>计算房屋每平米的均价<code class="docutils literal notranslate"><span class="pre">avg_price</span></code>，以<code class="docutils literal notranslate"><span class="pre">***元/平米</span></code>的格式存储到表中，其中<code class="docutils literal notranslate"><span class="pre">***</span></code>为整数。</p></li>
+</ol>
+</section>
+<section id="ex2">
+<h3>Ex2：《权力的游戏》剧本数据集<a class="headerlink" href="#ex2" title="Link to this heading">#</a></h3>
+<p>现有一份权力的游戏剧本数据集如下：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/script.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Release Date</th>
+      <th>Season</th>
+      <th>Episode</th>
+      <th>Episode Title</th>
+      <th>Name</th>
+      <th>Sentence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2011-04-17</td>
+      <td>Season 1</td>
+      <td>Episode 1</td>
+      <td>Winter is Coming</td>
+      <td>waymar royce</td>
+      <td>What do you expect? They're savages. One lot s...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2011-04-17</td>
+      <td>Season 1</td>
+      <td>Episode 1</td>
+      <td>Winter is Coming</td>
+      <td>will</td>
+      <td>I've never seen wildlings do a thing like this...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2011-04-17</td>
+      <td>Season 1</td>
+      <td>Episode 1</td>
+      <td>Winter is Coming</td>
+      <td>waymar royce</td>
+      <td>How close did you get?</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple">
+<li><p>计算每一个<code class="docutils literal notranslate"><span class="pre">Episode</span></code>的台词条数。</p></li>
+<li><p>以空格为单词的分割符号，请求出单句台词平均单词量最多的前五个人。</p></li>
+<li><p>若某人的台词中含有问号，那么下一个说台词的人即为回答者。若上一人台词中含有<span class="math notranslate nohighlight">\(n\)</span>个问号，则认为回答者回答了<span class="math notranslate nohighlight">\(n\)</span>个问题，请求出回答最多问题的前五个人。</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./python-lib\pandas\notebook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">第七章 缺失数据</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09%20%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">第九章 分类数据</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#str">一、str对象</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1. str对象的设计意图</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2. []索引器</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string">3. string类型</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">二、正则表达式基础</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1. 一般字符的匹配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2. 元字符基础</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3. 简写字符集</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">三、文本处理的五类操作</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1. 拆分</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2. 合并</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3. 匹配</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4. 替换</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5. 提取</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">四、常用字符串函数</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">1. 字母型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2. 数值型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 统计型函数</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 格式型函数</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">五、练习</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex1">Ex1：房屋信息数据集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex2">Ex2：《权力的游戏》剧本数据集</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By JH
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+Traceback (most recent call last):
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\nbclient\client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "D:\program\anaconda3\envs\torch\lib\asyncio\base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "D:\program\anaconda3\envs\torch\lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+s_area = pd.to_numeric(df.area.str[:-1])
+s_price = pd.to_numeric(df.price.str[:-1])
+df['avg_price'] = ((s_price/s_area)*10000).astype('int').astype('string') + '元/平米'
+df.head(3)
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mIntCastingNaNError[0m                        Traceback (most recent call last)
+Cell [1;32mIn[58], line 3[0m
+[0;32m      1[0m s_area [38;5;241m=[39m pd[38;5;241m.[39mto_numeric(df[38;5;241m.[39marea[38;5;241m.[39mstr[:[38;5;241m-[39m[38;5;241m1[39m])
+[0;32m      2[0m s_price [38;5;241m=[39m pd[38;5;241m.[39mto_numeric(df[38;5;241m.[39mprice[38;5;241m.[39mstr[:[38;5;241m-[39m[38;5;241m1[39m])
+[1;32m----> 3[0m df[[38;5;124m'[39m[38;5;124mavg_price[39m[38;5;124m'[39m] [38;5;241m=[39m [43m([49m[43m([49m[43ms_price[49m[38;5;241;43m/[39;49m[43ms_area[49m[43m)[49m[38;5;241;43m*[39;49m[38;5;241;43m10000[39;49m[43m)[49m[38;5;241;43m.[39;49m[43mastype[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mint[39;49m[38;5;124;43m'[39;49m[43m)[49m[38;5;241m.[39mastype([38;5;124m'[39m[38;5;124mstring[39m[38;5;124m'[39m) [38;5;241m+[39m [38;5;124m'[39m[38;5;124m元/平米[39m[38;5;124m'[39m
+[0;32m      4[0m df[38;5;241m.[39mhead([38;5;241m3[39m)
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\generic.py:6324[0m, in [0;36mNDFrame.astype[1;34m(self, dtype, copy, errors)[0m
+[0;32m   6317[0m     results [38;5;241m=[39m [
+[0;32m   6318[0m         [38;5;28mself[39m[38;5;241m.[39miloc[:, i][38;5;241m.[39mastype(dtype, copy[38;5;241m=[39mcopy)
+[0;32m   6319[0m         [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;28mlen[39m([38;5;28mself[39m[38;5;241m.[39mcolumns))
+[0;32m   6320[0m     ]
+[0;32m   6322[0m [38;5;28;01melse[39;00m:
+[0;32m   6323[0m     [38;5;66;03m# else, only a single dtype is given[39;00m
+[1;32m-> 6324[0m     new_data [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_mgr[49m[38;5;241;43m.[39;49m[43mastype[49m[43m([49m[43mdtype[49m[38;5;241;43m=[39;49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m,[49m[43m [49m[43merrors[49m[38;5;241;43m=[39;49m[43merrors[49m[43m)[49m
+[0;32m   6325[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_constructor(new_data)[38;5;241m.[39m__finalize__([38;5;28mself[39m, method[38;5;241m=[39m[38;5;124m"[39m[38;5;124mastype[39m[38;5;124m"[39m)
+[0;32m   6327[0m [38;5;66;03m# GH 33113: handle empty frame or series[39;00m
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\internals\managers.py:451[0m, in [0;36mBaseBlockManager.astype[1;34m(self, dtype, copy, errors)[0m
+[0;32m    448[0m [38;5;28;01melif[39;00m using_copy_on_write():
+[0;32m    449[0m     copy [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[1;32m--> 451[0m [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mapply[49m[43m([49m
+[0;32m    452[0m [43m    [49m[38;5;124;43m"[39;49m[38;5;124;43mastype[39;49m[38;5;124;43m"[39;49m[43m,[49m
+[0;32m    453[0m [43m    [49m[43mdtype[49m[38;5;241;43m=[39;49m[43mdtype[49m[43m,[49m
+[0;32m    454[0m [43m    [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m,[49m
+[0;32m    455[0m [43m    [49m[43merrors[49m[38;5;241;43m=[39;49m[43merrors[49m[43m,[49m
+[0;32m    456[0m [43m    [49m[43musing_cow[49m[38;5;241;43m=[39;49m[43musing_copy_on_write[49m[43m([49m[43m)[49m[43m,[49m
+[0;32m    457[0m [43m[49m[43m)[49m
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\internals\managers.py:352[0m, in [0;36mBaseBlockManager.apply[1;34m(self, f, align_keys, **kwargs)[0m
+[0;32m    350[0m         applied [38;5;241m=[39m b[38;5;241m.[39mapply(f, [38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    351[0m     [38;5;28;01melse[39;00m:
+[1;32m--> 352[0m         applied [38;5;241m=[39m [38;5;28mgetattr[39m(b, f)([38;5;241m*[39m[38;5;241m*[39mkwargs)
+[0;32m    353[0m     result_blocks [38;5;241m=[39m extend_blocks(applied, result_blocks)
+[0;32m    355[0m out [38;5;241m=[39m [38;5;28mtype[39m([38;5;28mself[39m)[38;5;241m.[39mfrom_blocks(result_blocks, [38;5;28mself[39m[38;5;241m.[39maxes)
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\internals\blocks.py:511[0m, in [0;36mBlock.astype[1;34m(self, dtype, copy, errors, using_cow)[0m
+[0;32m    491[0m [38;5;250m[39m[38;5;124;03m"""[39;00m
+[0;32m    492[0m [38;5;124;03mCoerce to the new dtype.[39;00m
+[0;32m    493[0m 
+[1;32m   (...)[0m
+[0;32m    507[0m [38;5;124;03mBlock[39;00m
+[0;32m    508[0m [38;5;124;03m"""[39;00m
+[0;32m    509[0m values [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mvalues
+[1;32m--> 511[0m new_values [38;5;241m=[39m [43mastype_array_safe[49m[43m([49m[43mvalues[49m[43m,[49m[43m [49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m,[49m[43m [49m[43merrors[49m[38;5;241;43m=[39;49m[43merrors[49m[43m)[49m
+[0;32m    513[0m new_values [38;5;241m=[39m maybe_coerce_values(new_values)
+[0;32m    515[0m refs [38;5;241m=[39m [38;5;28;01mNone[39;00m
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\dtypes\astype.py:242[0m, in [0;36mastype_array_safe[1;34m(values, dtype, copy, errors)[0m
+[0;32m    239[0m     dtype [38;5;241m=[39m dtype[38;5;241m.[39mnumpy_dtype
+[0;32m    241[0m [38;5;28;01mtry[39;00m:
+[1;32m--> 242[0m     new_values [38;5;241m=[39m [43mastype_array[49m[43m([49m[43mvalues[49m[43m,[49m[43m [49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m)[49m
+[0;32m    243[0m [38;5;28;01mexcept[39;00m ([38;5;167;01mValueError[39;00m, [38;5;167;01mTypeError[39;00m):
+[0;32m    244[0m     [38;5;66;03m# e.g. _astype_nansafe can fail on object-dtype of strings[39;00m
+[0;32m    245[0m     [38;5;66;03m#  trying to convert to float[39;00m
+[0;32m    246[0m     [38;5;28;01mif[39;00m errors [38;5;241m==[39m [38;5;124m"[39m[38;5;124mignore[39m[38;5;124m"[39m:
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\dtypes\astype.py:187[0m, in [0;36mastype_array[1;34m(values, dtype, copy)[0m
+[0;32m    184[0m     values [38;5;241m=[39m values[38;5;241m.[39mastype(dtype, copy[38;5;241m=[39mcopy)
+[0;32m    186[0m [38;5;28;01melse[39;00m:
+[1;32m--> 187[0m     values [38;5;241m=[39m [43m_astype_nansafe[49m[43m([49m[43mvalues[49m[43m,[49m[43m [49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m)[49m
+[0;32m    189[0m [38;5;66;03m# in pandas we don't store numpy str dtypes, so convert to object[39;00m
+[0;32m    190[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(dtype, np[38;5;241m.[39mdtype) [38;5;129;01mand[39;00m [38;5;28missubclass[39m(values[38;5;241m.[39mdtype[38;5;241m.[39mtype, [38;5;28mstr[39m):
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\dtypes\astype.py:105[0m, in [0;36m_astype_nansafe[1;34m(arr, dtype, copy, skipna)[0m
+[0;32m    100[0m     [38;5;28;01mreturn[39;00m lib[38;5;241m.[39mensure_string_array(
+[0;32m    101[0m         arr, skipna[38;5;241m=[39mskipna, convert_na_value[38;5;241m=[39m[38;5;28;01mFalse[39;00m
+[0;32m    102[0m     )[38;5;241m.[39mreshape(shape)
+[0;32m    104[0m [38;5;28;01melif[39;00m np[38;5;241m.[39missubdtype(arr[38;5;241m.[39mdtype, np[38;5;241m.[39mfloating) [38;5;129;01mand[39;00m is_integer_dtype(dtype):
+[1;32m--> 105[0m     [38;5;28;01mreturn[39;00m [43m_astype_float_to_int_nansafe[49m[43m([49m[43marr[49m[43m,[49m[43m [49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[43m)[49m
+[0;32m    107[0m [38;5;28;01melif[39;00m is_object_dtype(arr[38;5;241m.[39mdtype):
+[0;32m    108[0m     [38;5;66;03m# if we have a datetime/timedelta array of objects[39;00m
+[0;32m    109[0m     [38;5;66;03m# then coerce to datetime64[ns] and use DatetimeArray.astype[39;00m
+[0;32m    111[0m     [38;5;28;01mif[39;00m is_datetime64_dtype(dtype):
+
+File [1;32mD:\program\anaconda3\envs\torch\lib\site-packages\pandas\core\dtypes\astype.py:150[0m, in [0;36m_astype_float_to_int_nansafe[1;34m(values, dtype, copy)[0m
+[0;32m    146[0m [38;5;250m[39m[38;5;124;03m"""[39;00m
+[0;32m    147[0m [38;5;124;03mastype with a check preventing converting NaN to an meaningless integer value.[39;00m
+[0;32m    148[0m [38;5;124;03m"""[39;00m
+[0;32m    149[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m np[38;5;241m.[39misfinite(values)[38;5;241m.[39mall():
+[1;32m--> 150[0m     [38;5;28;01mraise[39;00m IntCastingNaNError(
+[0;32m    151[0m         [38;5;124m"[39m[38;5;124mCannot convert non-finite values (NA or inf) to integer[39m[38;5;124m"[39m
+[0;32m    152[0m     )
+[0;32m    153[0m [38;5;28;01mif[39;00m dtype[38;5;241m.[39mkind [38;5;241m==[39m [38;5;124m"[39m[38;5;124mu[39m[38;5;124m"[39m:
+[0;32m    154[0m     [38;5;66;03m# GH#45151[39;00m
+[0;32m    155[0m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m (values [38;5;241m>[39m[38;5;241m=[39m [38;5;241m0[39m)[38;5;241m.[39mall():
+
+[1;31mIntCastingNaNError[0m: Cannot convert non-finite values (NA or inf) to integer
+

@@ -1,0 +1,2994 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第五章 变形 &#8212; python-lib</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python-lib/pandas/notebook/05 变形';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="第六章 连接" href="06%20%E8%BF%9E%E6%8E%A5.html" />
+    <link rel="prev" title="第四章 分组" href="04%20%E5%88%86%E7%BB%84.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/logo.png" class="logo__image only-light" alt="python-lib - Home"/>
+    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="python-lib - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Pandas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01%20%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86.html">第一章 预备知识</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02%20pandas%E5%9F%BA%E7%A1%80.html">第二章 pandas基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03%20%E7%B4%A2%E5%BC%95.html">第三章 索引</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04%20%E5%88%86%E7%BB%84.html">第四章 分组</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">第五章 变形</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06%20%E8%BF%9E%E6%8E%A5.html">第六章 连接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07%20%E7%BC%BA%E5%A4%B1%E6%95%B0%E6%8D%AE.html">第七章 缺失数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08%20%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE.html">第八章 文本数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09%20%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE.html">第九章 分类数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10%20%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE.html">第十章 时序数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.html">参考答案</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpython-lib/pandas/notebook/05 变形.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button"
+   title="Open an issue"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/python-lib/pandas/notebook/05 变形.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>第五章 变形</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">一、长宽表的变形</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot">1. pivot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-table">2. pivot_table</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">【练一练】</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#end">【END】</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#melt">3. melt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wide-to-long">4. wide_to_long</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">二、索引的变形</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stackunstack">1. stack与unstack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2. 聚合与变形的关系</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">三、其他变形函数</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crosstab">1. crosstab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explode">2. explode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-dummies">3. get_dummies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">四、练习</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex1">Ex1：美国非法药物数据集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex2-wide-to-long">Ex2：特殊的wide_to_long方法</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>第五章 变形<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2>一、长宽表的变形<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>什么是长表？什么是宽表？这个概念是对于某一个特征而言的。例如：一个表中把性别存储在某一个列中，那么它就是关于性别的长表；如果把性别作为列名，列中的元素是某一其他的相关特征数值，那么这个表是关于性别的宽表。下面的两张表就分别是关于性别的长表和宽表：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Gender&#39;</span><span class="p">:[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span><span class="s1">&#39;F&#39;</span><span class="p">,</span><span class="s1">&#39;M&#39;</span><span class="p">,</span><span class="s1">&#39;M&#39;</span><span class="p">],</span> <span class="s1">&#39;Height&#39;</span><span class="p">:[</span><span class="mi">163</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">180</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Gender</th>
+      <th>Height</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F</td>
+      <td>163</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>F</td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>M</td>
+      <td>175</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>M</td>
+      <td>180</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Height: F&#39;</span><span class="p">:[</span><span class="mi">163</span><span class="p">,</span> <span class="mi">160</span><span class="p">],</span> <span class="s1">&#39;Height: M&#39;</span><span class="p">:[</span><span class="mi">175</span><span class="p">,</span> <span class="mi">180</span><span class="p">]})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Height: F</th>
+      <th>Height: M</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>163</td>
+      <td>175</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>160</td>
+      <td>180</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>显然这两张表从信息上是完全等价的，它们包含相同的身高统计数值，只是这些数值的呈现方式不同，而其呈现方式主要又与性别一列选择的布局模式有关，即到底是以<span class="math notranslate nohighlight">\(\color{red}{long}\)</span>的状态存储还是以<span class="math notranslate nohighlight">\(\color{red}{wide}\)</span>的状态存储。因此，<code class="docutils literal notranslate"><span class="pre">pandas</span></code>针对此类长宽表的变形操作设计了一些有关的变形函数。</p>
+<section id="pivot">
+<h3>1. pivot<a class="headerlink" href="#pivot" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pivot</span></code>是一种典型的长表变宽表的函数，首先来看一个例子：下表存储了张三和李四的语文和数学分数，现在想要把语文和数学分数作为列来展示。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Class&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span><span class="s1">&#39;Si Li&#39;</span><span class="p">,</span><span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Subject&#39;</span><span class="p">:[</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span><span class="s1">&#39;Math&#39;</span><span class="p">,</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span><span class="s1">&#39;Math&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Grade&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">85</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Chinese</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Math</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Chinese</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Math</td>
+      <td>85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>对于一个基本的长变宽操作而言，最重要的有三个要素，分别是变形后的行索引、需要转到列索引的列，以及这些列和行索引对应的数值，它们分别对应了<code class="docutils literal notranslate"><span class="pre">pivot</span></code>方法中的<code class="docutils literal notranslate"><span class="pre">index,</span> <span class="pre">columns,</span> <span class="pre">values</span></code>参数。新生成表的列索引是<code class="docutils literal notranslate"><span class="pre">columns</span></code>对应列的<code class="docutils literal notranslate"><span class="pre">unique</span></code>值，而新表的行索引是<code class="docutils literal notranslate"><span class="pre">index</span></code>对应列的<code class="docutils literal notranslate"><span class="pre">unique</span></code>值，而<code class="docutils literal notranslate"><span class="pre">values</span></code>对应了想要展示的数值列。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Subject&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Grade&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Subject</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>San Zhang</th>
+      <td>80</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>Si Li</th>
+      <td>90</td>
+      <td>85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>通过颜色的标记，更容易地能够理解其变形的过程：</p>
+<img src="../source/_static/ch5_pivot.png" width="20%"><p>利用<code class="docutils literal notranslate"><span class="pre">pivot</span></code>进行变形操作需要满足唯一性的要求，即由于在新表中的行列索引对应了唯一的<code class="docutils literal notranslate"><span class="pre">value</span></code>，因此原表中的<code class="docutils literal notranslate"><span class="pre">index</span></code>和<code class="docutils literal notranslate"><span class="pre">columns</span></code>对应两个列的行组合必须唯一。例如，现在把原表中第二行张三的数学改为语文就会报错，这是由于<code class="docutils literal notranslate"><span class="pre">Name</span></code>与<code class="docutils literal notranslate"><span class="pre">Subject</span></code>的组合中两次出现<code class="docutils literal notranslate"><span class="pre">(&quot;San</span> <span class="pre">Zhang&quot;,</span> <span class="pre">&quot;Chinese&quot;)</span></code>，从而最后不能够确定到底变形后应该是填写80分还是75分。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Chinese&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Subject&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Grade&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">Err_Msg</span> <span class="o">=</span> <span class="n">e</span>
+<span class="n">Err_Msg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ValueError(&#39;Index contains duplicate entries, cannot reshape&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>从<code class="docutils literal notranslate"><span class="pre">1.1.0</span></code>开始，<code class="docutils literal notranslate"><span class="pre">pivot</span></code>相关的三个参数允许被设置为列表，这也意味着会返回多级索引。这里构造一个相应的例子来说明如何使用：下表中六列分别为班级、姓名、测试类型（期中考试和期末考试）、科目、成绩、排名。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Class&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Examination&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Mid&#39;</span><span class="p">,</span> <span class="s1">&#39;Final&#39;</span><span class="p">,</span> <span class="s1">&#39;Mid&#39;</span><span class="p">,</span> <span class="s1">&#39;Final&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;Mid&#39;</span><span class="p">,</span> <span class="s1">&#39;Final&#39;</span><span class="p">,</span> <span class="s1">&#39;Mid&#39;</span><span class="p">,</span> <span class="s1">&#39;Final&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Subject&#39;</span><span class="p">:[</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Grade&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">88</span><span class="p">],</span>
+                   <span class="s1">&#39;rank&#39;</span><span class="p">:[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Examination</th>
+      <th>Subject</th>
+      <th>Grade</th>
+      <th>rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Mid</td>
+      <td>Chinese</td>
+      <td>80</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Final</td>
+      <td>Chinese</td>
+      <td>75</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Mid</td>
+      <td>Chinese</td>
+      <td>85</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Final</td>
+      <td>Chinese</td>
+      <td>65</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Mid</td>
+      <td>Math</td>
+      <td>90</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Final</td>
+      <td>Math</td>
+      <td>85</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Mid</td>
+      <td>Math</td>
+      <td>92</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Final</td>
+      <td>Math</td>
+      <td>88</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>现在想要把测试类型和科目联合组成的四个类别（期中语文、期末语文、期中数学、期末数学）转到列索引，并且同时统计成绩和排名：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pivot_multi</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                       <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">,</span><span class="s1">&#39;Examination&#39;</span><span class="p">],</span>
+                       <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Grade&#39;</span><span class="p">,</span><span class="s1">&#39;rank&#39;</span><span class="p">])</span>
+<span class="n">pivot_multi</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="4" halign="left">Grade</th>
+      <th colspan="4" halign="left">rank</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Subject</th>
+      <th colspan="2" halign="left">Chinese</th>
+      <th colspan="2" halign="left">Math</th>
+      <th colspan="2" halign="left">Chinese</th>
+      <th colspan="2" halign="left">Math</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Examination</th>
+      <th>Mid</th>
+      <th>Final</th>
+      <th>Mid</th>
+      <th>Final</th>
+      <th>Mid</th>
+      <th>Final</th>
+      <th>Mid</th>
+      <th>Final</th>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>San Zhang</th>
+      <td>80</td>
+      <td>75</td>
+      <td>90</td>
+      <td>85</td>
+      <td>10</td>
+      <td>15</td>
+      <td>20</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th>Si Li</th>
+      <td>85</td>
+      <td>65</td>
+      <td>92</td>
+      <td>88</td>
+      <td>21</td>
+      <td>15</td>
+      <td>6</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>根据唯一性原则，新表的行索引等价于对<code class="docutils literal notranslate"><span class="pre">index</span></code>中的多列使用<code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code>，而列索引的长度为<code class="docutils literal notranslate"><span class="pre">values</span></code>中的元素个数乘以<code class="docutils literal notranslate"><span class="pre">columns</span></code>的唯一组合数量（与<code class="docutils literal notranslate"><span class="pre">index</span></code>类似） 。从下面的示意图中能够比较容易地理解相应的操作：</p>
+<img src="../source/_static/ch5_mulpivot.png" width="35%">
+</section>
+<section id="pivot-table">
+<h3>2. pivot_table<a class="headerlink" href="#pivot-table" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pivot</span></code>的使用依赖于唯一性条件，那如果不满足唯一性条件，那么必须通过聚合操作使得相同行列组合对应的多个值变为一个值。例如，张三和李四都参加了两次语文考试和数学考试，按照学院规定，最后的成绩是两次考试分数的平均值，此时就无法通过<code class="docutils literal notranslate"><span class="pre">pivot</span></code>函数来完成。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> 
+                              <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Subject&#39;</span><span class="p">:[</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Grade&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">95</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>San Zhang</td>
+      <td>Chinese</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>San Zhang</td>
+      <td>Chinese</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>San Zhang</td>
+      <td>Math</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>San Zhang</td>
+      <td>Math</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Si Li</td>
+      <td>Chinese</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Si Li</td>
+      <td>Chinese</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Si Li</td>
+      <td>Math</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Si Li</td>
+      <td>Math</td>
+      <td>95</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>中提供了<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>来实现，其中的<code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>参数就是使用的聚合函数。上述场景可以如下写出：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+               <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+               <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;Grade&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span> <span class="o">=</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Subject</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>San Zhang</th>
+      <td>85</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>Si Li</th>
+      <td>75</td>
+      <td>90</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>这里传入<code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>包含了上一章中介绍的所有合法聚合字符串，此外还可以传入以序列为输入标量为输出的聚合函数来实现自定义操作，上述功能可以等价写出：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+               <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+               <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;Grade&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Subject</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>San Zhang</th>
+      <td>85</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>Si Li</th>
+      <td>75</td>
+      <td>90</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>此外，<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>具有边际汇总的功能，可以通过设置<code class="docutils literal notranslate"><span class="pre">margins=True</span></code>来实现，其中边际的聚合方式与<code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>中给出的聚合方法一致。下面就分别统计了语文均分和数学均分、张三均分和李四均分，以及总体所有分数的均分：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+               <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+               <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;Grade&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+               <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Subject</th>
+      <th>Chinese</th>
+      <th>Math</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>San Zhang</th>
+      <td>85</td>
+      <td>95.0</td>
+      <td>90.00</td>
+    </tr>
+    <tr>
+      <th>Si Li</th>
+      <td>75</td>
+      <td>90.0</td>
+      <td>82.50</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>80</td>
+      <td>92.5</td>
+      <td>86.25</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="id3">
+<h4>【练一练】<a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p>在上面的边际汇总例子中，行或列的汇总为新表中行元素或者列元素的平均值，而总体的汇总为新表中四个元素的平均值。这种关系一定成立吗？若不成立，请给出一个例子来说明。</p>
+</section>
+<section id="end">
+<h4>【END】<a class="headerlink" href="#end" title="Link to this heading">#</a></h4>
+</section>
+</section>
+<section id="melt">
+<h3>3. melt<a class="headerlink" href="#melt" title="Link to this heading">#</a></h3>
+<p>长宽表只是数据呈现方式的差异，但其包含的信息量是等价的，前面提到了利用<code class="docutils literal notranslate"><span class="pre">pivot</span></code>把长表转为宽表，那么就可以通过相应的逆操作把宽表转为长表，<code class="docutils literal notranslate"><span class="pre">melt</span></code>函数就起到了这样的作用。在下面的例子中，<code class="docutils literal notranslate"><span class="pre">Subject</span></code>以列索引的形式存储，现在想要将其压缩到一个列中。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Class&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Chinese&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+                   <span class="s1">&#39;Math&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>80</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>90</td>
+      <td>75</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_melted</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                    <span class="n">value_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">],</span>
+                    <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+                    <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;Grade&#39;</span><span class="p">)</span>
+<span class="n">df_melted</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Chinese</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Chinese</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Math</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Math</td>
+      <td>75</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">melt</span></code>的主要参数和压缩的过程如下图所示：</p>
+<img src="../source/_static/ch5_melt.png" width="35%">
+<p>前面提到了<code class="docutils literal notranslate"><span class="pre">melt</span></code>和<code class="docutils literal notranslate"><span class="pre">pivot</span></code>是一组互逆过程，那么就一定可以通过<code class="docutils literal notranslate"><span class="pre">pivot</span></code>操作把<code class="docutils literal notranslate"><span class="pre">df_melted</span></code>转回<code class="docutils literal notranslate"><span class="pre">df</span></code>的形式：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_unmelted</span> <span class="o">=</span> <span class="n">df_melted</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                              <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Subject&#39;</span><span class="p">,</span>
+                              <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Grade&#39;</span><span class="p">)</span>
+<span class="n">df_unmelted</span> <span class="c1"># 下面需要恢复索引，并且重命名列索引名称</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Subject</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>San Zhang</th>
+      <td>80</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th>Si Li</th>
+      <td>90</td>
+      <td>75</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_unmelted</span> <span class="o">=</span> <span class="n">df_unmelted</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Subject&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">})</span>
+<span class="n">df_unmelted</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="wide-to-long">
+<h3>4. wide_to_long<a class="headerlink" href="#wide-to-long" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">melt</span></code>方法中，在列索引中被压缩的一组值对应的列元素只能代表同一层次的含义，即<code class="docutils literal notranslate"><span class="pre">values_name</span></code>。现在如果列中包含了交叉类别，比如期中期末的类别和语文数学的类别，那么想要把<code class="docutils literal notranslate"><span class="pre">values_name</span></code>对应的<code class="docutils literal notranslate"><span class="pre">Grade</span></code>扩充为两列分别对应语文分数和数学分数，只把期中期末的信息压缩，这种需求下就要使用<code class="docutils literal notranslate"><span class="pre">wide_to_long</span></code>函数来完成。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Class&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Chinese_Mid&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="s1">&#39;Math_Mid&#39;</span><span class="p">:[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">85</span><span class="p">],</span>
+                   <span class="s1">&#39;Chinese_Final&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="s1">&#39;Math_Final&#39;</span><span class="p">:[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">85</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Chinese_Mid</th>
+      <th>Math_Mid</th>
+      <th>Chinese_Final</th>
+      <th>Math_Final</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>80</td>
+      <td>90</td>
+      <td>80</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>75</td>
+      <td>85</td>
+      <td>75</td>
+      <td>85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">wide_to_long</span><span class="p">(</span><span class="n">df</span><span class="p">,</span>
+                <span class="n">stubnames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Chinese&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">],</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                <span class="n">j</span><span class="o">=</span><span class="s1">&#39;Examination&#39;</span><span class="p">,</span>
+                <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span>
+                <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;.+&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Examination</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th rowspan="2" valign="top">San Zhang</th>
+      <th>Mid</th>
+      <td>80</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>Final</th>
+      <td>80</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">2</th>
+      <th rowspan="2" valign="top">Si Li</th>
+      <th>Mid</th>
+      <td>75</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>Final</th>
+      <td>75</td>
+      <td>85</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>具体的变换过程由下图进行展示，属相同概念的元素使用了一致的颜色标出：</p>
+<img src="../source/_static/ch5_wtl.png" width="35%">
+<p>下面给出一个比较复杂的案例，把之前在<code class="docutils literal notranslate"><span class="pre">pivot</span></code>一节中多列操作的结果（产生了多级索引），利用<code class="docutils literal notranslate"><span class="pre">wide_to_long</span></code>函数，将其转为原来的形态。其中，使用了第八章的<code class="docutils literal notranslate"><span class="pre">str.split</span></code>函数，目前暂时只需将其理解为对序列按照某个分隔符进行拆分即可。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pivot_multi</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">res</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">wide_to_long</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">stubnames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Grade&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">],</span>
+                           <span class="n">i</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                           <span class="n">j</span> <span class="o">=</span> <span class="s1">&#39;Subject_Examination&#39;</span><span class="p">,</span>
+                           <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span>
+                           <span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;.+&#39;</span><span class="p">)</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Grade</th>
+      <th>rank</th>
+    </tr>
+    <tr>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Subject_Examination</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">1</th>
+      <th rowspan="4" valign="top">San Zhang</th>
+      <th>Chinese_Mid</th>
+      <td>80</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>Chinese_Final</th>
+      <td>75</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>Math_Mid</th>
+      <td>90</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Math_Final</th>
+      <td>85</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">2</th>
+      <th rowspan="4" valign="top">Si Li</th>
+      <th>Chinese_Mid</th>
+      <td>85</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>Chinese_Final</th>
+      <td>65</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>Math_Mid</th>
+      <td>92</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>Math_Final</th>
+      <td>88</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">res</span><span class="p">[[</span><span class="s1">&#39;Subject&#39;</span><span class="p">,</span> <span class="s1">&#39;Examination&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;Subject_Examination&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="p">[[</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Examination&#39;</span><span class="p">,</span> <span class="s1">&#39;Subject&#39;</span><span class="p">,</span> <span class="s1">&#39;Grade&#39;</span><span class="p">,</span> <span class="s1">&#39;rank&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Subject&#39;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Examination</th>
+      <th>Subject</th>
+      <th>Grade</th>
+      <th>rank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Mid</td>
+      <td>Chinese</td>
+      <td>80</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Final</td>
+      <td>Chinese</td>
+      <td>75</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Mid</td>
+      <td>Chinese</td>
+      <td>85</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Final</td>
+      <td>Chinese</td>
+      <td>65</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Mid</td>
+      <td>Math</td>
+      <td>90</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>Final</td>
+      <td>Math</td>
+      <td>85</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Mid</td>
+      <td>Math</td>
+      <td>92</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>Final</td>
+      <td>Math</td>
+      <td>88</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2>二、索引的变形<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="stackunstack">
+<h3>1. stack与unstack<a class="headerlink" href="#stackunstack" title="Link to this heading">#</a></h3>
+<p>在第二章中提到了利用<code class="docutils literal notranslate"><span class="pre">swaplevel</span></code>或者<code class="docutils literal notranslate"><span class="pre">reorder_levels</span></code>进行索引内部的层交换，下面就要讨论<span class="math notranslate nohighlight">\(\color{red}{行列索引之间}\)</span>的交换，由于这种交换带来了<code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>维度上的变化，因此属于变形操作。在第一节中提到的4种变形函数与其不同之处在于，它们都属于某一列或几列<span class="math notranslate nohighlight">\(\color{red}{元素}\)</span>和<span class="math notranslate nohighlight">\(\color{red}{列索引}\)</span>之间的转换，而不是索引之间的转换。</p>
+<p><code class="docutils literal notranslate"><span class="pre">unstack</span></code>函数的作用是把行索引转为列索引，例如下面这个简单的例子：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;small&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;small&#39;</span><span class="p">)]),</span>
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;col_1&#39;</span><span class="p">,</span> <span class="s1">&#39;col_2&#39;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>col_1</th>
+      <th>col_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <th>small</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">B</th>
+      <th>cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <th>small</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">col_1</th>
+      <th colspan="2" halign="left">col_2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>cat</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">B</th>
+      <th>cat</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">unstack</span></code>的主要参数是移动的层号，默认转化最内层，移动到列索引的最内层，同时支持同时转化多个层：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">col_1</th>
+      <th colspan="2" halign="left">col_2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>cat</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">B</th>
+      <th>cat</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left">col_1</th>
+      <th colspan="4" halign="left">col_2</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>cat</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>类似于<code class="docutils literal notranslate"><span class="pre">pivot</span></code>中的唯一性要求，在<code class="docutils literal notranslate"><span class="pre">unstack</span></code>中必须保证<span class="math notranslate nohighlight">\(\color{red}{被转为列索引的行索引层}\)</span>和<span class="math notranslate nohighlight">\(\color{red}{被保留的行索引层}\)</span>构成的组合是唯一的，例如把前两个列索引改成相同的破坏唯一性，那么就会报错：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="n">my_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">my_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">my_index</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>col_1</th>
+      <th>col_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th rowspan="2" valign="top">cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">B</th>
+      <th>cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <th>small</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="n">Err_Msg</span> <span class="o">=</span> <span class="n">e</span>
+<span class="n">Err_Msg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ValueError(&#39;Index contains duplicate entries, cannot reshape&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>与<code class="docutils literal notranslate"><span class="pre">unstack</span></code>相反，<code class="docutils literal notranslate"><span class="pre">stack</span></code>的作用就是把列索引的层压入行索引，其用法完全类似。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">([(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;small&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;small&#39;</span><span class="p">)]),</span>
+                  <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;index_1&#39;</span><span class="p">,</span> <span class="s1">&#39;index_2&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>cat</th>
+      <th>dog</th>
+      <th>cat</th>
+      <th>dog</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>big</th>
+      <th>small</th>
+      <th>big</th>
+      <th>small</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>index_1</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>index_2</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">A</th>
+      <th colspan="2" halign="left">B</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>cat</th>
+      <th>dog</th>
+      <th>cat</th>
+      <th>dog</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">index_1</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>small</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">index_2</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>small</th>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">index_1</th>
+      <th>cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <th>small</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">index_2</th>
+      <th>cat</th>
+      <th>big</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>dog</th>
+      <th>small</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id5">
+<h3>2. 聚合与变形的关系<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>在上面介绍的所有函数中，除了带有聚合效果的<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>以外，所有的函数在变形前后并不会带来<code class="docutils literal notranslate"><span class="pre">values</span></code>个数的改变，只是这些值在呈现的形式上发生了变化。在上一章讨论的分组聚合操作，由于生成了新的行列索引，因此必然也属于某种特殊的变形操作，但由于聚合之后把原来的多个值变为了一个值，因此<code class="docutils literal notranslate"><span class="pre">values</span></code>的个数产生了变化，这也是分组聚合与变形函数的最大区别。</p>
+</section>
+</section>
+<section id="id6">
+<h2>三、其他变形函数<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="crosstab">
+<h3>1. crosstab<a class="headerlink" href="#crosstab" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">crosstab</span></code>是一个地位尴尬的函数，因为它能实现的所有功能<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>都能完成。在默认状态下，<code class="docutils literal notranslate"><span class="pre">crosstab</span></code>可以统计元素组合出现的频数，即<code class="docutils literal notranslate"><span class="pre">count</span></code>操作。例如统计<code class="docutils literal notranslate"><span class="pre">learn_pandas</span></code>数据集中学校和转系情况对应的频数：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/learn_pandas.csv&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">School</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Transfer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Transfer</th>
+      <th>N</th>
+      <th>Y</th>
+    </tr>
+    <tr>
+      <th>School</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fudan University</th>
+      <td>38</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Peking University</th>
+      <td>28</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Shanghai Jiao Tong University</th>
+      <td>53</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Tsinghua University</th>
+      <td>62</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>这等价于如下<code class="docutils literal notranslate"><span class="pre">crosstab</span></code>的如下写法，这里的<code class="docutils literal notranslate"><span class="pre">aggfunc</span></code>即聚合参数：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">School</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Transfer</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">aggfunc</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Transfer</th>
+      <th>N</th>
+      <th>Y</th>
+    </tr>
+    <tr>
+      <th>School</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fudan University</th>
+      <td>38.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Peking University</th>
+      <td>28.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>Shanghai Jiao Tong University</th>
+      <td>53.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Tsinghua University</th>
+      <td>62.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>同样，可以利用<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>进行等价操作，由于这里统计的是组合的频数，因此<code class="docutils literal notranslate"><span class="pre">values</span></code>参数无论传入哪一个列都不会影响最后的结果：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;School&#39;</span><span class="p">,</span>
+               <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Transfer&#39;</span><span class="p">,</span>
+               <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+               <span class="n">aggfunc</span> <span class="o">=</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Transfer</th>
+      <th>N</th>
+      <th>Y</th>
+    </tr>
+    <tr>
+      <th>School</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fudan University</th>
+      <td>38.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Peking University</th>
+      <td>28.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>Shanghai Jiao Tong University</th>
+      <td>53.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Tsinghua University</th>
+      <td>62.0</td>
+      <td>4.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>从上面可以看出这两个函数的区别在于，<code class="docutils literal notranslate"><span class="pre">crosstab</span></code>的对应位置传入的是具体的序列，而<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>传入的是被调用表对应的名字，若传入序列对应的值则会报错。</p>
+<p>除了默认状态下的<code class="docutils literal notranslate"><span class="pre">count</span></code>统计，所有的聚合字符串和返回标量的自定义函数都是可用的，例如统计对应组合的身高均值：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">School</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Transfer</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Height</span><span class="p">,</span> <span class="n">aggfunc</span> <span class="o">=</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Transfer</th>
+      <th>N</th>
+      <th>Y</th>
+    </tr>
+    <tr>
+      <th>School</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fudan University</th>
+      <td>162.043750</td>
+      <td>177.20</td>
+    </tr>
+    <tr>
+      <th>Peking University</th>
+      <td>163.429630</td>
+      <td>162.40</td>
+    </tr>
+    <tr>
+      <th>Shanghai Jiao Tong University</th>
+      <td>163.953846</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Tsinghua University</th>
+      <td>163.253571</td>
+      <td>164.55</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="explode">
+<h3>2. explode<a class="headerlink" href="#explode" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">explode</span></code>参数能够对某一列的元素进行纵向的展开，被展开的单元格必须存储<code class="docutils literal notranslate"><span class="pre">list,</span> <span class="pre">tuple,</span> <span class="pre">Series,</span> <span class="pre">np.ndarray</span></code>中的一种类型。</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;my_str&#39;</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])],</span>
+                      <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">df_ex</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>[1, 2]</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>my_str</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{1, 2}</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0    3
+1    4
+dtype: int64</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ex</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>my_str</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="get-dummies">
+<h3>3. get_dummies<a class="headerlink" href="#get-dummies" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">get_dummies</span></code>是用于特征构建的重要函数之一，其作用是把类别特征转为指示变量。例如，对年级一列转为指示变量，属于某一个年级的对应列标记为1，否则为0：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Grade</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Freshman</th>
+      <th>Junior</th>
+      <th>Senior</th>
+      <th>Sophomore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>四、练习<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="ex1">
+<h3>Ex1：美国非法药物数据集<a class="headerlink" href="#ex1" title="Link to this heading">#</a></h3>
+<p>现有一份关于美国非法药物的数据集，其中<code class="docutils literal notranslate"><span class="pre">SubstanceName,</span> <span class="pre">DrugReports</span></code>分别指药物名称和报告数量：</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/drugs.csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;State&#39;</span><span class="p">,</span><span class="s1">&#39;COUNTY&#39;</span><span class="p">,</span><span class="s1">&#39;SubstanceName&#39;</span><span class="p">],</span><span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>YYYY</th>
+      <th>State</th>
+      <th>COUNTY</th>
+      <th>SubstanceName</th>
+      <th>DrugReports</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2011</td>
+      <td>KY</td>
+      <td>ADAIR</td>
+      <td>Buprenorphine</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2012</td>
+      <td>KY</td>
+      <td>ADAIR</td>
+      <td>Buprenorphine</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2013</td>
+      <td>KY</td>
+      <td>ADAIR</td>
+      <td>Buprenorphine</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="arabic simple">
+<li><p>将数据转为如下的形式：</p></li>
+</ol>
+<img src="../source/_static/Ex5_1.png" width="35%"><ol class="arabic simple" start="2">
+<li><p>将第1问中的结果恢复为原表。</p></li>
+<li><p>按<code class="docutils literal notranslate"><span class="pre">State</span></code>分别统计每年的报告数量总和，其中<code class="docutils literal notranslate"><span class="pre">State,</span> <span class="pre">YYYY</span></code>分别为列索引和行索引，要求分别使用<code class="docutils literal notranslate"><span class="pre">pivot_table</span></code>函数与<code class="docutils literal notranslate"><span class="pre">groupby+unstack</span></code>两种不同的策略实现，并体会它们之间的联系。</p></li>
+</ol>
+</section>
+<section id="ex2-wide-to-long">
+<h3>Ex2：特殊的wide_to_long方法<a class="headerlink" href="#ex2-wide-to-long" title="Link to this heading">#</a></h3>
+<p>从功能上看，<code class="docutils literal notranslate"><span class="pre">melt</span></code>方法应当属于<code class="docutils literal notranslate"><span class="pre">wide_to_long</span></code>的一种特殊情况，即<code class="docutils literal notranslate"><span class="pre">stubnames</span></code>只有一类。请使用<code class="docutils literal notranslate"><span class="pre">wide_to_long</span></code>生成<code class="docutils literal notranslate"><span class="pre">melt</span></code>一节中的<code class="docutils literal notranslate"><span class="pre">df_melted</span></code>。（提示：对列名增加适当的前缀）</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Class&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+                   <span class="s1">&#39;Name&#39;</span><span class="p">:[</span><span class="s1">&#39;San Zhang&#39;</span><span class="p">,</span> <span class="s1">&#39;Si Li&#39;</span><span class="p">],</span>
+                   <span class="s1">&#39;Chinese&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+                   <span class="s1">&#39;Math&#39;</span><span class="p">:[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">75</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Chinese</th>
+      <th>Math</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>San Zhang</td>
+      <td>80</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Si Li</td>
+      <td>90</td>
+      <td>75</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./python-lib\pandas\notebook"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04%20%E5%88%86%E7%BB%84.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">第四章 分组</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06%20%E8%BF%9E%E6%8E%A5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">第六章 连接</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">一、长宽表的变形</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot">1. pivot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-table">2. pivot_table</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">【练一练】</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#end">【END】</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#melt">3. melt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wide-to-long">4. wide_to_long</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">二、索引的变形</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stackunstack">1. stack与unstack</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2. 聚合与变形的关系</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">三、其他变形函数</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#crosstab">1. crosstab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explode">2. explode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#get-dummies">3. get_dummies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">四、练习</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex1">Ex1：美国非法药物数据集</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ex2-wide-to-long">Ex2：特殊的wide_to_long方法</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By JH
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
